@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>Iniciar sesión</title>
+  <style>
+    /* From Uiverse.io by Yaya12085 */ 
+    .form {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      max-width: 350px;
+      background-color: #fff;
+      padding: 20px;
+      border-radius: 20px;
+      position: relative;
+      margin: 40px auto;
+      box-shadow: 0 10px 20px rgba(0,0,0,0.08);
+    }
+
+    .title {
+      font-size: 28px;
+      color: royalblue;
+      font-weight: 600;
+      letter-spacing: -1px;
+      position: relative;
+      display: flex;
+      align-items: center;
+      padding-left: 30px;
+    }
+
+    .title::before,.title::after {
+      position: absolute;
+      content: "";
+      height: 16px;
+      width: 16px;
+      border-radius: 50%;
+      left: 0px;
+      background-color: royalblue;
+    }
+
+    .title::before { width: 18px; height: 18px; background-color: royalblue; }
+    .title::after { width: 18px; height: 18px; animation: pulse 1s linear infinite; }
+
+    .message, .signin { color: rgba(88, 87, 87, 0.822); font-size: 14px; }
+    .signin { text-align: center; }
+    .signin a { color: royalblue; }
+    .signin a:hover { text-decoration: underline royalblue; }
+
+    .flex { display: flex; width: 100%; gap: 6px; }
+    .form label { position: relative; flex: 1; }
+
+    .form label .input {
+      width: 100%;
+      padding: 10px 10px 20px 10px;
+      outline: 0;
+      border: 1px solid rgba(105, 105, 105, 0.397);
+      border-radius: 10px;
+    }
+
+    .form label .input + span {
+      position: absolute;
+      left: 10px;
+      top: 15px;
+      color: grey;
+      font-size: 0.9em;
+      cursor: text;
+      transition: 0.3s ease;
+    }
+
+    .form label .input:placeholder-shown + span { top: 15px; font-size: 0.9em; }
+
+    .form label .input:focus + span,
+    .form label .input:valid + span {
+      top: 30px;
+      font-size: 0.7em;
+      font-weight: 600;
+    }
+
+    .form label .input:valid + span { color: green; }
+
+    .submit {
+      border: none;
+      outline: none;
+      background-color: royalblue;
+      padding: 10px;
+      border-radius: 10px;
+      color: #fff;
+      font-size: 16px;
+      transform: .3s ease;
+      cursor: pointer;
+    }
+
+    .submit:hover { background-color: rgb(56, 90, 194); }
+
+    @keyframes pulse {
+      from { transform: scale(0.9); opacity: 1; }
+      to { transform: scale(1.8); opacity: 0; }
+    }
+
+    .errors { color: #b00020; font-size: 13px; margin: 0 0 6px 2px; }
+    ul.errorlist { margin: 4px 0 0 0; padding: 0 0 0 18px; color: #b00020; }
+  </style>
+</head>
+<body>
+  <form method="post" class="form" novalidate>
+    <p class="title">Signin</p>
+    <p class="message">Welcome back! Please enter your credentials.</p>
+
+    {% if messages %}
+      <div class="messages">
+        <ul>
+          {% for message in messages %}
+            <li>{{ message }}</li>
+          {% endfor %}
+        </ul>
+      </div>
+    {% endif %}
+
+    {% csrf_token %}
+    {{ form.non_field_errors }}
+
+    <label>
+      {{ form.username }}
+      <span>Username</span>
+      {{ form.username.errors }}
+    </label>
+
+    <label>
+      {{ form.password }}
+      <span>Password</span>
+      {{ form.password.errors }}
+    </label>
+
+    <button type="submit" class="submit">Submit</button>
+    <p class="signin">¿No tienes cuenta? <a href="{% url 'register' %}">Regístrate</a></p>
+  </form>
+</body>
+</html>

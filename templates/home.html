@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>Home</title>
+  <style>
+    /* Simple navbar */
+    body { margin: 0; font-family: system-ui, -apple-system, Segoe UI, Roboto, Ubuntu, Cantarell, Noto Sans, Helvetica, Arial, "Apple Color Emoji", "Segoe UI Emoji"; background: #f7f7fb; }
+    .navbar {
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 12px 20px; background: #ffffff; border-bottom: 1px solid #eaeaea;
+      position: sticky; top: 0; z-index: 10;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+    }
+    .brand { font-weight: 700; color: royalblue; letter-spacing: -0.2px; }
+    .nav-links { display: flex; gap: 14px; align-items: center; }
+    .nav-links a { text-decoration: none; color: #2b2b2b; font-weight: 500; }
+    .badge { background: royalblue; color: #fff; padding: 4px 10px; border-radius: 999px; font-size: 12px; }
+
+    .container { max-width: 960px; margin: 28px auto; padding: 0 16px; }
+    .card { background: #fff; border-radius: 16px; padding: 24px; box-shadow: 0 10px 20px rgba(0,0,0,0.06); }
+    .title { margin: 0 0 8px 0; color: #1b1f2a; }
+    .subtitle { margin: 0; color: #666; }
+  </style>
+</head>
+<body>
+  <nav class="navbar">
+    <div class="brand">Importniture</div>
+    <div class="nav-links">
+      <a href="/">Inicio</a>
+      <span class="badge">Usuario: {{ request.user.username }}</span>
+    </div>
+  </nav>
+
+  <main class="container">
+    <section class="card">
+      <h1 class="title">Bienvenido, {{ request.user.first_name|default:request.user.username }} 👋</h1>
+      <p class="subtitle">Has iniciado sesión como <strong>{{ request.user.username }}</strong>.</p>
+      <p class="subtitle">Esta es la página de inicio protegida. Usa el menú superior para navegar.</p>
+    </section>
+  </main>
+</body>
+</html>
